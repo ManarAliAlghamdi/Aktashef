@@ -75,7 +75,7 @@ struct CounrtyListView: View {
                                     .padding(10)
                                     .onTapGesture {
                                         itemFavesbool[index].toggle()
-                                        print("test")
+                                        print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[index])")
                                     }
                                 Spacer()
                                 
@@ -102,3 +102,4 @@ struct CounrtyListView: View {
 #Preview {
     CounrtyListView()
 }
+
