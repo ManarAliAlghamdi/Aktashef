@@ -1,21 +1,13 @@
 import SwiftUI
-
-struct Locations: Identifiable {
-    let id = UUID()
-    let name: String
-    let imageName: String
-}
-
-struct CounrtyListView: View {
+struct FavesCounrtyListView: View {
     @State private var searchText = ""
-    @State private var itemFavesbool = [Bool](repeating: false, count: 3)
-    
+    @State private var itemFavesbool = [Bool](repeating: true, count: 2)
+    //يستخدم للليست تبع المدن اللي داخله بالمفضله
     let items = [
         Locations(name: "بريطانيا", imageName: "britain"),
-        Locations(name: "روسيا", imageName: "russia"),
-        Locations(name: "اليابان", imageName: "japan"),
+        Locations(name: "روسيا", imageName: "russia")
     ]
-
+//للشرط عشان البحث
     var filteredItems: [Locations] {
         if searchText.isEmpty {
             return items
@@ -33,7 +25,7 @@ struct CounrtyListView: View {
                         print("Grid clicked!")
                     }
                 Spacer()
-                Image(systemName: "heart")
+                Image(systemName: "heart.fill")
                     .font(.system(size: 25))
                     .foregroundColor(.red)
                     .onTapGesture {
@@ -49,37 +41,40 @@ struct CounrtyListView: View {
                 .padding(10)
                 .background(Color(.systemGray6))
                 .cornerRadius(10)
-                .multilineTextAlignment(.trailing)
+/*هذا يخلي البحث من جهة اليمين*/                .multilineTextAlignment(.trailing)
                 .padding(.horizontal)
 
-            // ListViewBuilder of items
+            // ListViewBulider of items
             List {
                 ForEach(filteredItems.indices, id: \.self) { index in
                     GeometryReader { geometry in
                         ZStack(alignment: .bottomTrailing) {
-                            Image(filteredItems[index].imageName) // Use filteredItems here
+                            Image(filteredItems[index].imageName)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                 .clipped()
                                 .cornerRadius(20)
 
-                            Color.black
+/*يخلي الصوره على سواد*/                           Color.black
                                 .opacity(0.4)
-                                .cornerRadius(20)
+/*شكل الصوره يكون مقوس*/         .cornerRadius(20)
 
+                            
                             HStack {
-                                Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
+ //يستخدم للشرط اذا مو من المفضل يصير القلب مو احمر
+ Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
                                     .foregroundColor(itemFavesbool[index] ? .red : .white)
-                                    .font(.title)
-                                    .padding(10)
+                                 /*حجم القلب*/   .font(.title)
+                                /*يستخدم ياخذ مساحات من كل جهه*/    .padding(10)
+                                
                                     .onTapGesture {
                                         itemFavesbool[index].toggle()
-                                        print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[index])")
+ /*تنطبع هذي الجمله لما اشيل القلب */ print("test")
                                     }
-                                Spacer()
+/*سبيس للقلب */                       Spacer()
                                 
-                                Text(filteredItems[index].name) // Use filteredItems here
+                                Text(filteredItems[index].name)
                                     .font(.title)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
@@ -87,6 +82,7 @@ struct CounrtyListView: View {
                             }
                         }
                         .frame(height: 150)
+                        
                         .onTapGesture {
                             print("\(filteredItems[index].name) clicked")
                         }
@@ -98,8 +94,6 @@ struct CounrtyListView: View {
         }
     }
 }
-
 #Preview {
-    CounrtyListView()
+    FavesCounrtyListView()
 }
-
