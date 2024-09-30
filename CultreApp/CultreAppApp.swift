@@ -17,7 +17,7 @@ struct CultreAppApp: App {
     }
 
 struct Nav: View{
-    @State private var showCountryGrid = true
+    @State private var showCountryGrid = false
     var body: some View{
         VStack{
             HStack {

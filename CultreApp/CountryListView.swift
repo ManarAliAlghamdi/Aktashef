@@ -1,31 +1,10 @@
 import SwiftUI
 
-//struct nav: View {
-//    @State private var showCountryGrid = true
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                
-//                if showCountryGrid {
-//                    CountryGridView()
-//                        .transition(.opacity)
-//                    CountryListView()
-//                        .transition(.slide).hidden()// Apply transition effect
-//                } else {
-//                    CountryListView()
-//                        .transition(.slide)
-//                    CountryGridView()
-//                        .transition(.opacity).hidden()// Apply a different transition effect
-//                }
-//            }
-//    }
-//}
 
 struct CountryListView: View {
     
     @State private var searchText = ""
     @State private var itemFavesbool = [Bool](repeating: false, count: 3)
-    @State private var navigateToGridView = false // State to control navigation
     
     let items = [
         Locations(name: "بريطانيا", imageName: "britain"),
@@ -53,9 +32,7 @@ struct CountryListView: View {
         }
         HStack {
             
-            
-            
-            // List View
+            // ListViewBulider
             List {
                 ForEach(filteredItems.indices, id: \.self) { index in
                     GeometryReader { geometry in
@@ -96,11 +73,6 @@ struct CountryListView: View {
             }
             .listStyle(PlainListStyle())
             
-            .background(
-                NavigationLink(destination: CountryGridView(), isActive: $navigateToGridView) {
-                    EmptyView() // Invisible link that activates navigation
-                }
-            )
         }
     }
     
