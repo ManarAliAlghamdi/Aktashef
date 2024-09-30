@@ -2,6 +2,7 @@ import SwiftUI
 
 
 struct CountryGridView: View {
+    
     @State private var searchText = ""
     @State private var itemFavesbool = [Bool](repeating: false, count: 3)
     
@@ -26,32 +27,15 @@ struct CountryGridView: View {
 
     var body: some View {
         VStack {
-            HStack {
-                Image(systemName: "line.3.horizontal")
-                    .font(.system(size: 25))
-                    .onTapGesture {
-                        print("Grid clicked!")
-                    }
-                Spacer()
-                Image(systemName: "heart")
-                    .font(.system(size: 25))
-                    .foregroundColor(.red)
-                    .onTapGesture {
-                        print("heart clicked!")
-                    }
-            }
-            .padding(.bottom, 10)
-            .padding(.leading, 25)
-            .padding(.trailing, 25)
+        
+                // Search Bar
+                TextField("على وين رايح؟ ..", text: $searchText)
+                    .padding(10)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .multilineTextAlignment(.trailing)
+                    .padding(.horizontal)
             
-            // Search Bar
-            TextField("على وين رايح؟ ..", text: $searchText)
-                .padding(10)
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-                .multilineTextAlignment(.trailing)
-                .padding(.horizontal)
-
             // Grid layout for items
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 20) {
