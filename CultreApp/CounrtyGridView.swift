@@ -1,8 +1,8 @@
 import SwiftUI
 
-
 struct CountryGridView: View {
-    
+    @Binding var showCountryFaves: Bool
+
     @State private var searchText = ""
     @State private var itemFavesbool = [Bool](repeating: false, count: 3)
     
@@ -13,10 +13,16 @@ struct CountryGridView: View {
     ]
 
     var filteredItems: [Locations] {
-        if searchText.isEmpty {
-            return items
+        let searchedItems = searchText.isEmpty ? items : items.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+
+        if showCountryFaves {
+            return searchedItems.enumerated().compactMap { index, item in
+                // Get the correct favorite status using the original index
+                let originalIndex = items.firstIndex(where: { $0.name == item.name })!
+                return itemFavesbool[originalIndex] ? item : nil
+            }
         } else {
-            return items.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return searchedItems
         }
     }
 
@@ -26,19 +32,18 @@ struct CountryGridView: View {
     ]
 
     var body: some View {
-        
         VStack {
-                        
             // Search Bar
-                TextField("على وين رايح؟ ..", text: $searchText)
-                    .padding(10)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .multilineTextAlignment(.trailing)
-                    .padding(.horizontal)
+            TextField("على وين رايح؟ ..", text: $searchText)
+                .padding(10)
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+                .multilineTextAlignment(.trailing)
+                .padding(.horizontal)
             
             // Grid layout for items
-            ScrollView {
+            ScrollView
+            {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(filteredItems.indices, id: \.self) { index in
                         ZStack(alignment: .bottom) {
@@ -58,16 +63,18 @@ struct CountryGridView: View {
                                 VStack {
                                     Spacer()
                                     HStack {
-                                        Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
-                                            .foregroundColor(itemFavesbool[index] ? .red : .white)
+                                        // Find the original index to access the correct favorite status
+                                        let originalIndex = items.firstIndex(where: { $0.name == filteredItems[index].name })!
+
+                                        Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
+                                            .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
                                             .font(.title)
                                             .padding(10)
                                             .onTapGesture {
-                                                itemFavesbool[index].toggle()
-                                                print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[index])")
+                                                itemFavesbool[originalIndex].toggle()
+                                                print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[originalIndex])")
                                             }
                                         Spacer()
-                                        
                                         
                                         Text(filteredItems[index].name)
                                             .font(.title2)
@@ -89,5 +96,5 @@ struct CountryGridView: View {
 }
 
 #Preview {
-    CountryGridView()
+    CountryGridView(showCountryFaves: .constant(true))
 }

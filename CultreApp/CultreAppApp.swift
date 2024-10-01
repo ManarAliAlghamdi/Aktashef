@@ -52,15 +52,11 @@ struct ChangeCounrtiesView: View{
             .padding(.trailing, 25)
             
             
-            
-            if showCountryGrid && showCountryFaves{
-                favesCountryGrid()
-            }else if !showCountryGrid && showCountryFaves{
-                FavesCounrtyListView()
-            } else if !showCountryGrid && !showCountryFaves{
-                CountryListView()
+
+            if !showCountryGrid{
+                CountryListView(showCountryFaves: $showCountryFaves)
             }else{
-                CountryGridView()
+                CountryGridView(showCountryFaves: $showCountryFaves)
             }
         }
     }

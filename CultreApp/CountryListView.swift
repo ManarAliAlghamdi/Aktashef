@@ -2,6 +2,7 @@ import SwiftUI
 
 
 struct CountryListView: View {
+    @Binding var showCountryFaves: Bool
     
     @State private var searchText = ""
     @State private var itemFavesbool = [Bool](repeating: false, count: 3)
@@ -13,17 +14,21 @@ struct CountryListView: View {
     ]
     
     var filteredItems: [Locations] {
-        if searchText.isEmpty {
-            return items
+        let searchedItems = searchText.isEmpty ? items : items.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+        
+        if showCountryFaves {
+            return searchedItems.enumerated().compactMap { index, item in
+                // Check the original index from `items` to get the correct favorite status
+                let originalIndex = items.firstIndex(where: { $0.name == item.name })!
+                return itemFavesbool[originalIndex] ? item : nil
+            }
         } else {
-            return items.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
+            return searchedItems
         }
     }
     
     var body: some View {
         VStack{
-    
-            
             // Search Bar
             TextField("على وين رايح؟ ..", text: $searchText)
                 .padding(10)
@@ -33,8 +38,7 @@ struct CountryListView: View {
                 .padding(.horizontal)
         }
         HStack {
-            
-            // ListViewBulider
+            // ListViewBuilder
             List {
                 ForEach(filteredItems.indices, id: \.self) { index in
                     GeometryReader { geometry in
@@ -51,14 +55,16 @@ struct CountryListView: View {
                                 .cornerRadius(20)
                             
                             HStack {
-                                Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
-                                    .foregroundColor(itemFavesbool[index] ? .red : .white)
+                                // Find the original index from the `items` list to manage favorites properly
+                                let originalIndex = items.firstIndex(where: { $0.name == filteredItems[index].name })!
+                                
+                                Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
+                                    .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
                                     .font(.title)
                                     .padding(10)
                                     .onTapGesture {
-                                        itemFavesbool[index].toggle()
-                                        print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[index])")
-                                    
+                                        itemFavesbool[originalIndex].toggle()
+                                        print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[originalIndex])")
                                     }
                                 Spacer()
                                 
@@ -75,13 +81,6 @@ struct CountryListView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            
         }
     }
-    
-}
-
-
-#Preview {
-    CountryListView()
 }
