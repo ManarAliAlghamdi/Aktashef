@@ -19,6 +19,7 @@ struct FavesCounrtyListView: View {
     var body: some View {
         VStack {
             HStack {
+         
                 Image(systemName: "square.grid.2x2")
                     .font(.system(size: 25))
                     .onTapGesture {

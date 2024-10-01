@@ -11,8 +11,8 @@ import SwiftUI
 struct CultreAppApp: App {
     var body: some Scene {
         WindowGroup {
-                Nav()
-            }
+            
+        }
         }
     }
 

@@ -22,6 +22,7 @@ struct CountryListView: View {
     
     var body: some View {
         VStack{
+            
             // Search Bar
             TextField("على وين رايح؟ ..", text: $searchText)
                 .padding(10)
