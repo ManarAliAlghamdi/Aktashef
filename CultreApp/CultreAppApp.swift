@@ -11,15 +11,18 @@ import SwiftUI
 struct CultreAppApp: App {
     var body: some Scene {
         WindowGroup {
-            
-        }
+                ChangeCounrtiesView()
+            }
         }
     }
 
-struct Nav: View{
-    @State private var showCountryGrid = false
+
+struct ChangeCounrtiesView: View{
+    @State private var showCountryGrid = true
+    @State private var showCountryFaves = false
     var body: some View{
         VStack{
+          
             HStack {
                 Image(systemName: showCountryGrid ? "line.3.horizontal" : "square.grid.2x2")
                     .font(.system(size: 25))
@@ -30,24 +33,35 @@ struct Nav: View{
                     }
                 
                 Spacer()
-                Image(systemName: "heart")
+                Text("الدول").font(.title)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
+                Spacer()
+                
+                Image(systemName:  showCountryFaves ? "heart.fill" : "heart")
+                    .foregroundColor(showCountryFaves ? .red : .black)
                     .font(.system(size: 25))
-                    .foregroundColor(.red)
+                    .foregroundColor(.black)
                     .onTapGesture {
-                        print("heart clicked!")
+                        showCountryFaves.toggle()
                     }
             }
+            
             .padding(.bottom, 10)
             .padding(.leading, 25)
             .padding(.trailing, 25)
             
             
-                
-                if showCountryGrid {
-                    CountryGridView()
-                } else {
-                    CountryListView()
-                }
+            
+            if showCountryGrid && showCountryFaves{
+                favesCountryGrid()
+            }else if !showCountryGrid && showCountryFaves{
+                FavesCounrtyListView()
+            } else if !showCountryGrid && !showCountryFaves{
+                CountryListView()
+            }else{
+                CountryGridView()
+            }
         }
     }
 }

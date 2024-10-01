@@ -22,6 +22,7 @@ struct CountryListView: View {
     
     var body: some View {
         VStack{
+    
             
             // Search Bar
             TextField("على وين رايح؟ ..", text: $searchText)
@@ -57,6 +58,7 @@ struct CountryListView: View {
                                     .onTapGesture {
                                         itemFavesbool[index].toggle()
                                         print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[index])")
+                                    
                                     }
                                 Spacer()
                                 

@@ -5,7 +5,7 @@ struct FavesCounrtyListView: View {
     //يستخدم للليست تبع المدن اللي داخله بالمفضله
     let items = [
         Locations(name: "بريطانيا", imageName: "britain"),
-        Locations(name: "روسيا", imageName: "russia")
+        Locations(name: "اليابان", imageName: "japan"),
     ]
 //للشرط عشان البحث
     var filteredItems: [Locations] {
@@ -18,24 +18,6 @@ struct FavesCounrtyListView: View {
 
     var body: some View {
         VStack {
-            HStack {
-         
-                Image(systemName: "square.grid.2x2")
-                    .font(.system(size: 25))
-                    .onTapGesture {
-                        print("Grid clicked!")
-                    }
-                Spacer()
-                Image(systemName: "heart.fill")
-                    .font(.system(size: 25))
-                    .foregroundColor(.red)
-                    .onTapGesture {
-                        print("heart clicked!")
-                    }
-            }
-            .padding(.bottom, 10)
-            .padding(.leading, 25)
-            .padding(.trailing, 25)
             
             // Search Bar
             TextField("على وين رايح؟ ..", text: $searchText)

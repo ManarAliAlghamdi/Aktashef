@@ -26,9 +26,10 @@ struct CountryGridView: View {
     ]
 
     var body: some View {
-        VStack {
         
-                // Search Bar
+        VStack {
+                        
+            // Search Bar
                 TextField("على وين رايح؟ ..", text: $searchText)
                     .padding(10)
                     .background(Color(.systemGray6))
