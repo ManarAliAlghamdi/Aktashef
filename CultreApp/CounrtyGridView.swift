@@ -32,6 +32,7 @@ struct CountryGridView: View {
     ]
 
     var body: some View {
+        NavigationView{
         VStack {
             // Search Bar
             TextField("على وين رايح؟ ..", text: $searchText)
@@ -46,6 +47,7 @@ struct CountryGridView: View {
             {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(filteredItems.indices, id: \.self) { index in
+                        NavigationLink(destination:ContryContent_UK_()){
                         ZStack(alignment: .bottom) {
                             GeometryReader { geometry in
                                 Image(filteredItems[index].imageName)
@@ -65,7 +67,7 @@ struct CountryGridView: View {
                                     HStack {
                                         // Find the original index to access the correct favorite status
                                         let originalIndex = items.firstIndex(where: { $0.name == filteredItems[index].name })!
-
+                                        
                                         Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
                                             .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
                                             .font(.title)
@@ -82,12 +84,12 @@ struct CountryGridView: View {
                                             .foregroundColor(.white)
                                             .padding([.horizontal, .bottom], 10)
                                     }
-                                }
+                                }}
                             }
                             .frame(height: 150)
                         }
                         .frame(height: 150)
-                    }
+                    }}
                 }
                 .padding()
             }
@@ -96,5 +98,5 @@ struct CountryGridView: View {
 }
 
 #Preview {
-    CountryGridView(showCountryFaves: .constant(true))
+    CountryGridView(showCountryFaves: .constant(false))
 }

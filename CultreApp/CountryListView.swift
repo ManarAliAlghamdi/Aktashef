@@ -28,59 +28,77 @@ struct CountryListView: View {
     }
     
     var body: some View {
-        VStack{
-            // Search Bar
-            TextField("على وين رايح؟ ..", text: $searchText)
-                .padding(10)
-                .background(Color(.systemGray6))
-                .cornerRadius(10)
-                .multilineTextAlignment(.trailing)
-                .padding(.horizontal)
-        }
-        HStack {
-            // ListViewBuilder
-            List {
-                ForEach(filteredItems.indices, id: \.self) { index in
-                    GeometryReader { geometry in
-                        ZStack(alignment: .bottomTrailing) {
-                            Image(filteredItems[index].imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: geometry.size.width, height: geometry.size.height)
-                                .clipped()
-                                .cornerRadius(20)
-                            
-                            Color.black
-                                .opacity(0.4)
-                                .cornerRadius(20)
-                            
-                            HStack {
-                                // Find the original index from the `items` list to manage favorites properly
-                                let originalIndex = items.firstIndex(where: { $0.name == filteredItems[index].name })!
+        NavigationView{
+            VStack{
+                // Search Bar
+                TextField("على وين رايح؟ ..", text: $searchText)
+                    .padding(10)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+                    .multilineTextAlignment(.trailing)
+                    .padding(.horizontal)
+                //            }
+                
+                // ListViewBuilder
+                List {
+                    ForEach(filteredItems.indices, id: \.self) { index in
+                        GeometryReader { geometry in
+                            NavigationLink(destination:ContryContent_UK_())
+                            { 
                                 
-                                Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
-                                    .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
-                                    .font(.title)
-                                    .padding(10)
-                                    .onTapGesture {
-                                        itemFavesbool[originalIndex].toggle()
-                                        print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[originalIndex])")
+                                
+                                
+                                ZStack(alignment: .bottomTrailing) {
+                                    Image(filteredItems[index].imageName)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                        .clipped()
+                                        .cornerRadius(20)
+                                    
+                                    Color.black
+                                        .opacity(0.4)
+                                        .cornerRadius(20)
+                                    
+                                    HStack {
+                                        // Find the original index from the `items` list to manage favorites properly
+                                        let originalIndex = items.firstIndex(where: { $0.name == filteredItems[index].name })!
+                                        
+                                        Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
+                                            .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
+                                            .font(.title)
+                                            .padding(10)
+                                            .onTapGesture {
+                                                itemFavesbool[originalIndex].toggle()
+                                                print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[originalIndex])")
+                                            }
+                                        Spacer()
+                                        
+                                        Text(filteredItems[index].name)
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.white)
+                                            .padding(10)
                                     }
-                                Spacer()
-                                
-                                Text(filteredItems[index].name)
-                                    .font(.title)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.white)
-                                    .padding(10)
+                                }
+                                .frame(height: 150)
                             }
+                            
                         }
+                        
                         .frame(height: 150)
-                    }
-                    .frame(height: 150)
+                    }.navigationBarBackButtonHidden(true)
+                    
                 }
+                
             }
             .listStyle(PlainListStyle())
-        }
-    }
+        }}
+    
+    
 }
+
+                                  #Preview {
+                                      CountryListView(showCountryFaves: .constant(false))
+                                  }
+
