@@ -43,7 +43,7 @@ struct CountryListView: View {
                 List {
                     ForEach(filteredItems.indices, id: \.self) { index in
                         GeometryReader { geometry in
-                            NavigationLink(destination:ContryContent_UK_())
+                            NavigationLink(destination:ContryContent_UK())
                             { 
                                 
                                 

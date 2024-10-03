@@ -47,7 +47,7 @@ struct CountryGridView: View {
             {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(filteredItems.indices, id: \.self) { index in
-                        NavigationLink(destination:ContryContent_UK_()){
+                        NavigationLink(destination:ContryContent_UK()){
                         ZStack(alignment: .bottom) {
                             GeometryReader { geometry in
                                 Image(filteredItems[index].imageName)
