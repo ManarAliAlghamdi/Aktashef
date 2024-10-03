@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct ContryContent_UK_: View {
+    @State private var showCountryGrid = false
+    @State private var showCountryFaves = false
     @State var categories:[String]=["نبذة","الأكل","كلمات","اماكن","انتبه تسويها","عاداتهم"]
     
     var body: some View {
         VStack {
+            
             ZStack(alignment: .trailing){
                 Image(.london).resizable()
                     .cornerRadius(10)

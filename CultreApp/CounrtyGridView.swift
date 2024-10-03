@@ -32,7 +32,7 @@ struct CountryGridView: View {
     ]
 
     var body: some View {
-        NavigationView{
+
         VStack {
             // Search Bar
             TextField("على وين رايح؟ ..", text: $searchText)
@@ -94,7 +94,7 @@ struct CountryGridView: View {
                 .padding()
             }
         }
-    }
+    
 }
 
 #Preview {
