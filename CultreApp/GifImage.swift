@@ -32,11 +32,12 @@ struct GifImage: UIViewRepresentable {
 
 struct GifImage_Previews: PreviewProvider {
     static var previews: some View {
-        GifImage("logo")
-            .frame(width: 200,height: 200)
-            .background(Color.clear)
-            .aspectRatio(contentMode: .fit)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
+        HStack{
+            GifImage("logo3")
+                .frame(width: 200,height: 200)
+                .background(Color.clear)
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
     }
 }
