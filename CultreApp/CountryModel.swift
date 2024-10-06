@@ -112,6 +112,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Model
 class Countries: Identifiable, Codable {  // Conforms to Codable
@@ -154,5 +155,30 @@ class Countries: Identifiable, Codable {  // Conforms to Codable
         self.counrtryName = try container.decode(String.self, forKey: .counrtryName)
         self.counrtryImageName = try container.decode(String.self, forKey: .counrtryImageName)
         self.counrtryIsFaves = try container.decode(Bool.self, forKey: .counrtryIsFaves)
+    }
+}
+
+
+
+struct SearchBar: View {
+    @Binding var text: String
+
+    var body: some View {
+        HStack {
+            TextField("على وين رايح؟ ...", text: $text)
+                .padding(7)
+                .padding(.horizontal, 25)
+                .background(Color(UIColor.systemGray5))
+                .cornerRadius(8)
+                .overlay(
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.gray)
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .padding(.leading, 8)
+                    }
+                )
+                .padding(.horizontal, 10)
+        }
     }
 }
