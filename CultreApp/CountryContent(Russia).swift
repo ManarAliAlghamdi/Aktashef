@@ -1,27 +1,27 @@
 //
-//  ContryContent(UK).swift
+//  CountryContent(Russia).swift
 //  CultreApp
 //
-//  Created by Fai Alharthi on 27/03/1446 AH.
+//  Created by Fai Alharthi on 03/04/1446 AH.
 //
 
 import SwiftUI
 
-struct ContryContent_UK: View {
+struct CountryContent_Russia_: View {
     @State private var selectedTab: String? = nil
     @State var categories: [String] = ["نبذة", "الأكل", "كلمات", "أماكن", "انتبه تسويها", "عاداتهم"]
     
     var body: some View {
         VStack {
             ZStack(alignment: .trailing) {
-                Image("london") // Corrected image string
+                Image("russia") // Corrected image string
                     .resizable()
                     .cornerRadius(10)
                     .frame(height: UIScreen.main.bounds.height * 0.22)
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 8)
                 
-                Text("بريطانيا")
+                Text("روسيا")
                     .foregroundColor(.white)
                     .frame(width: UIScreen.main.bounds.width * 0.3, height: UIScreen.main.bounds.height * 0.02, alignment: .trailing)
                     .padding()
@@ -64,7 +64,7 @@ struct ContryContent_UK: View {
                             .frame(alignment: .trailing)
                             .padding(.trailing, 10)
                     } else {
-                        Text("وش حاب تعرف عن بريطانيا؟")
+                        Text("وش حاب تعرف عن روسيا؟")
                             .foregroundColor(.brown)
                             .padding()
                             .multilineTextAlignment(.trailing) // Right-align the text
@@ -116,5 +116,5 @@ struct ContryContent_UK: View {
 }
 
 #Preview {
-    ContryContent_UK()
+    CountryContent_Russia_()
 }
