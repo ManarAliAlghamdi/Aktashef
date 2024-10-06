@@ -1,104 +1,85 @@
 import SwiftUI
 
-
 struct CountryListView: View {
-    @Binding var showCountryFaves: Bool
-    
+    @Binding var countries: [Countries]
+    @Binding var itemFavesbool: [Bool]
     @State private var searchText = ""
-    @State private var itemFavesbool = [Bool](repeating: false, count: 3)
-    
-    let items = [
-        Locations(name: "بريطانيا", imageName: "britain"),
-        Locations(name: "روسيا", imageName: "russia"),
-        Locations(name: "اليابان", imageName: "japan"),
-    ]
-    
-    var filteredItems: [Locations] {
-        let searchedItems = searchText.isEmpty ? items : items.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-        
-        if showCountryFaves {
-            return searchedItems.enumerated().compactMap { index, item in
-                // Check the original index from `items` to get the correct favorite status
-                let originalIndex = items.firstIndex(where: { $0.name == item.name })!
-                return itemFavesbool[originalIndex] ? item : nil
-            }
+
+    var filteredItems: [Countries] {
+        if searchText.isEmpty {
+            return countries
         } else {
-            return searchedItems
+            return countries.filter { $0.counrtryName.localizedCaseInsensitiveContains(searchText) }
         }
     }
-    
+
     var body: some View {
-        NavigationView{
-            VStack{
-                // Search Bar
-                TextField("على وين رايح؟ ..", text: $searchText)
-                    .padding(10)
-                    .background(Color(.systemGray6))
-                    .cornerRadius(10)
-                    .multilineTextAlignment(.trailing)
-                    .padding(.horizontal)
-                //            }
-                
-                // ListViewBuilder
-                List {
+        NavigationView {
+            ScrollView {
+                SearchBar(text: $searchText)
+
+                LazyVStack(spacing: 20) {
                     ForEach(filteredItems.indices, id: \.self) { index in
-                        GeometryReader { geometry in
-                            NavigationLink(destination:ContryContent_UK())
-                            { 
-                                
-                                
-                                
-                                ZStack(alignment: .bottomTrailing) {
-                                    Image(filteredItems[index].imageName)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: geometry.size.width, height: geometry.size.height)
-                                        .clipped()
-                                        .cornerRadius(20)
-                                    
-                                    Color.black
-                                        .opacity(0.4)
-                                        .cornerRadius(20)
-                                    
-                                    HStack {
-                                        // Find the original index from the `items` list to manage favorites properly
-                                        let originalIndex = items.firstIndex(where: { $0.name == filteredItems[index].name })!
-                                        
-                                        Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
-                                            .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
-                                            .font(.title)
-                                            .padding(10)
-                                            .onTapGesture {
-                                                itemFavesbool[originalIndex].toggle()
-                                                print("\(filteredItems[index].name) favorite status changed to \(itemFavesbool[originalIndex])")
-                                            }
-                                        Spacer()
-                                        
-                                        Text(filteredItems[index].name)
-                                            .font(.title)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.white)
-                                            .padding(10)
+                        if index < itemFavesbool.count {  // Ensure valid index
+                            ZStack(alignment: .bottomTrailing) {
+                                // Wrap the entire ZStack inside the NavigationLink
+                                NavigationLink(destination: CountryDetailWithTabsView(country: filteredItems[index])) {
+                                    ZStack {
+                                        Image(filteredItems[index].counrtryImageName)
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)  // Ensures images fill the frame proportionally
+                                            .frame(width: UIScreen.main.bounds.width - 40, height: 150)  // Fixed width and height for all images
+                                            .clipped()  // Clip overflow to fit the frame
+                                            .cornerRadius(20)
+
+                                        Color.black
+                                            .opacity(0.4)  // Dark overlay for better text visibility
+                                            .cornerRadius(20)
                                     }
                                 }
-                                .frame(height: 150)
+
+                                HStack {
+                                    Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
+                                        .foregroundColor(itemFavesbool[index] ? .red : .white)
+                                        .font(.title)
+                                        .padding(10)
+                                        .onTapGesture {
+                                            toggleFavoriteStatus(for: filteredItems[index])
+                                            itemFavesbool[index].toggle()  // Update the favorite status locally
+                                        }
+                                    Spacer()
+                                    Text(filteredItems[index].counrtryName)
+                                        .font(.title)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(10)
+                                }
                             }
-                            
+                            .frame(height: 150)
+                            .frame(width: 360)
+                            .cornerRadius(20)  // Ensure consistent corner radius
+                            .clipped()  // Clip any overflow
+                        } else {
+                            Text("Country not found or favorite status missing")
+                                .font(.title)
+                                .padding()
                         }
-                        
-                        .frame(height: 150)
-                    }.navigationBarBackButtonHidden(true)
-                    
+                    }
                 }
-                
+                .padding(.horizontal)
             }
-            .listStyle(PlainListStyle())
-        }}
-    
-    
+        }
+    }
+
+    func toggleFavoriteStatus(for country: Countries) {
+        print("Before toggling: \(country.counrtryName) favorite status: \(country.counrtryIsFaves)")
+        country.counrtryIsFaves.toggle()
+        print("After toggling: \(country.counrtryName) favorite status: \(country.counrtryIsFaves)")
+
+        if let index = countries.firstIndex(where: { $0.counrtryId == country.counrtryId }) {
+            countries[index] = country  // Update the country in the list
+        }
+
+        saveCountriesToJSON(countries: countries)  // Save the updated data back to JSON
+    }
 }
-
-                                  #Preview {
-                                      CountryListView(showCountryFaves: .constant(false))
-                                  }
-
