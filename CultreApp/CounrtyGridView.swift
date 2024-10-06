@@ -23,7 +23,7 @@ struct CountryGridView: View {
     }
 
     let columns = [
-        GridItem(.flexible(), spacing: 10),  // Ensure consistent spacing between columns
+        GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10)
     ]
 
@@ -32,7 +32,7 @@ struct CountryGridView: View {
             ScrollView {
                 SearchBar(text: $searchText)
 
-                LazyVGrid(columns: columns, spacing: 10) {  // Add spacing between rows
+                LazyVGrid(columns: columns) {
                     ForEach(filteredItems.indices, id: \.self) { index in
                         if let originalIndex = countries.firstIndex(where: { $0.counrtryId == filteredItems[index].counrtryId }) {
                             ZStack(alignment: .bottom) {
@@ -53,10 +53,10 @@ struct CountryGridView: View {
                                     Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
                                         .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
                                         .font(.title)
-                                        .padding(8)
+                                        .padding(10)
                                         .onTapGesture {
                                             toggleFavoriteStatus(for: filteredItems[index], index: originalIndex)
-                                            itemFavesbool[originalIndex].toggle()  // Update the favorite status based on the original index
+                                            itemFavesbool[originalIndex].toggle()
                                         }
                                     Spacer()
                                     Text(filteredItems[index].counrtryName)
@@ -78,15 +78,13 @@ struct CountryGridView: View {
             }
         }
     }
-
     func toggleFavoriteStatus(for country: Countries, index: Int) {
         print("Before toggling: \(country.counrtryName) favorite status: \(country.counrtryIsFaves)")
-        countries[index].counrtryIsFaves.toggle()
-        itemFavesbool[index].toggle()  // Update the favorite status locally
+        country.counrtryIsFaves.toggle()
         print("After toggling: \(country.counrtryName) favorite status: \(country.counrtryIsFaves)")
 
-        if let originalIndex = countries.firstIndex(where: { $0.counrtryId == country.counrtryId }) {
-            countries[originalIndex] = country  // Update the country in the list
+        if let index = countries.firstIndex(where: { $0.counrtryId == country.counrtryId }) {
+            countries[index] = country  // Update the country in the list
         }
 
         saveCountriesToJSON(countries: countries)  // Save the updated data back to JSON

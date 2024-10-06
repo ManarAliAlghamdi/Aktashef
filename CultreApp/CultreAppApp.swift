@@ -18,74 +18,78 @@ struct CultreAppApp: App {
         }
     }
 
-
 struct ChangeCounrtiesView: View{
     @State private var showCountryGrid = false
     @State private var showCountryFaves = false
     @State private var countries: [Countries] = []
     @State private var itemFavesbool: [Bool] = []
     @State private var isGridView = false
+    @State private var showSplash = true  // Start with splash screen visible
+
     var body: some View{
-        NavigationStack{
-            VStack{
-                
-                HStack {
-                    Image(systemName: showCountryGrid ? "line.3.horizontal" : "square.grid.2x2")
-                        .font(.system(size: 25))
-                        .foregroundColor(.black)
-                        .onTapGesture {
-                            showCountryGrid.toggle()
+        ZStack {
+            if showSplash {
+                FunSplashScreen()  // Splash screen view
+                    .transition(.opacity)  // Fade in and fade out transition
+            } else {
+                NavigationStack {
+                    VStack {
+                        // Toggle between grid view and list view
+                        HStack {
+                            Image(systemName: showCountryGrid ? "line.3.horizontal" : "square.grid.2x2")
+                                .font(.system(size: 25))
+                                .foregroundColor(.black)
+                                .onTapGesture {
+                                    showCountryGrid.toggle()
+                                }
                             
+                            Spacer()
                             
+                            Text("الدول").font(.title)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding()
+                            
+                            Spacer()
+                            
+                            Image(systemName: showCountryFaves ? "heart.fill" : "heart")
+                                .foregroundColor(showCountryFaves ? .red : .black)
+                                .font(.system(size: 25))
+                                .onTapGesture {
+                                    showCountryFaves.toggle()
+                                }
                         }
-                    
-                    Spacer()
-                    Text("الدول").font(.title)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding()
-                    Spacer()
-                    
-                    Image(systemName:  showCountryFaves ? "heart.fill" : "heart")
-                        .foregroundColor(showCountryFaves ? .red : .black)
-                        .font(.system(size: 25))
-                        .foregroundColor(.black)
-                        .onTapGesture {
-                            showCountryFaves.toggle()
-                            
+                        .padding(.bottom, 10)
+                        .padding(.leading, 25)
+                        .padding(.trailing, 25)
+                        
+                        // Show either list view or grid view
+                        if !showCountryGrid {
+                            CountryListView(countries: $countries, itemFavesbool: $itemFavesbool, sowFaves: $showCountryFaves)
+                        } else {
+                            CountryGridView(countries: $countries, itemFavesbool: $itemFavesbool, sowFaves: $showCountryFaves)
                         }
+                    }
                 }
-                
-                .padding(.bottom, 10)
-                .padding(.leading, 25)
-                .padding(.trailing, 25)
-                if !showCountryGrid{
-                    CountryListView(countries: $countries, itemFavesbool: $itemFavesbool, sowFaves: $showCountryFaves)
-                }else{
-                    CountryGridView(countries: $countries, itemFavesbool: $itemFavesbool, sowFaves: $showCountryFaves)
+                .onAppear {
+                    loadCountriesAndFavorites()
                 }
-                
             }
-        } .onAppear {
-            loadCountriesAndFavorites()
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {  // Increase the delay for a smoother splash screen experience
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    showSplash = false  // Hide the splash screen after the delay
+                }
+            }
         }
     }
 
     func loadCountriesAndFavorites() {
-        countries = loadCountries()
-
-        itemFavesbool = countries.map { $0.counrtryIsFaves }
-        
+        countries = loadCountries()  // Your function to load countries
+        itemFavesbool = countries.map { $0.counrtryIsFaves }  // Load the favorite statuses
 
         for country in countries {
             print("Loaded country: \(country.counrtryName), favorite status: \(country.counrtryIsFaves)")
         }
     }
 }
-
-
-
-
-
-
-    
-

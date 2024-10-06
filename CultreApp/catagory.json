@@ -1,0 +1,24 @@
+
+[
+    {
+        "catagoryId": 1, 
+        "catagoryName": "نبذة"
+    },
+    {
+        "catagoryId": 2,
+        "catagoryName": "عاداتهم"
+    },
+    {
+        "catagoryId": 3,
+        "catagoryName": "اكلهم"
+    }, {
+        "catagoryId": 4,
+        "catagoryName": "كلماتهم"
+    }, {
+        "catagoryId": 5,
+        "catagoryName": "اماكنهم"
+    }, {
+        "catagoryId": 6,
+        "catagoryName": "انتبه تسويها عندهم"
+    },
+]

@@ -2,8 +2,14 @@ import SwiftUI
 
 struct CountryDetailWithTabsView: View {
     var country: Countries
-    @State private var selectedTab: String? = "نبذة"  // Default selected tab
-    @State var categories: [String] = ["نبذة", "الأكل", "كلمات", "أماكن", "انتبه تسويها", "عاداتهم"]
+
+    @State private var selectedTab: Category?  // Default selected tab
+    @State private var categories: [Category] = []
+    @State private var categoryContent: [CategoryContent] = []
+
+    var filteredContent: [CategoryContent] {
+        return categoryContent.filter { $0.counrtryId == country.counrtryId && $0.catagoryId == selectedTab?.catagoryId }
+    }
 
     var body: some View {
         VStack {
@@ -31,23 +37,18 @@ struct CountryDetailWithTabsView: View {
             // Tab Buttons with Reduced Spacing and Softer Colors
             VStack {
                 ZStack {
-//                    Rectangle()
-//                        .fill(Color.gray.opacity(0.2))
-//                        .frame(width: UIScreen.main.bounds.width, height: 60)  // More compact background height
-//                        .shadow(radius: 2)
-
                     ScrollView(.horizontal) {
-                        HStack(spacing: 5) {  // Reduced spacing between the buttons
-                            ForEach(categories, id: \.self) { category in
-                                TabButton(title: category, isSelected: selectedTab == category) {
+                        HStack(spacing: 10) {  // Slightly reduced spacing between buttons
+                            ForEach(categories) { category in
+                                TabButton(title: category.catagoryName, isSelected: selectedTab?.catagoryId == category.catagoryId) {
                                     selectedTab = category
                                 }
-                                .frame(height: 60)  // Consistent button height
-                                                                .padding(.horizontal, 3)  // Padding inside the button to keep text centered
-                                                                .layoutPriority(1)  // E
+                                .frame(height: 50)  // Consistent button height
+                                .padding(.horizontal, 3)  // Padding inside the button to keep text centered
+                                .layoutPriority(1)  // Ensure priority to avoid text clipping
                             }
                         }
-                        .padding(.horizontal, 20)  // Padding to avoid touching the phone sides
+                        .padding(.horizontal, 15)  // Padding to avoid buttons touching the sides
                     }
                 }
             }
@@ -55,31 +56,57 @@ struct CountryDetailWithTabsView: View {
             // Content View Based on Selected Tab
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    if selectedTab == "نبذة" {
-                        SectionTitle(title: "About \(country.counrtryName)")
-                        Text("Here is some information about \(country.counrtryName)...")
-                    } else if selectedTab == "الأكل" {
-                        SectionTitle(title: "Food in \(country.counrtryName)")
-                        Text("Famous food details go here...")
-                    } else if selectedTab == "كلمات" {
-                        SectionTitle(title: "Common Words in \(country.counrtryName)")
-                        Text("Here are some common phrases...")
-                    } else if selectedTab == "أماكن" {
-                        SectionTitle(title: "Must-Visit Spots in \(country.counrtryName)")
-                        Text("Here are the must-visit spots...")
-                    } else if selectedTab == "انتبه تسويها" {
-                        SectionTitle(title: "Things to Avoid in \(country.counrtryName)")
-                        Text("Here are things you should avoid...")
-                    } else if selectedTab == "عاداتهم" {
-                        SectionTitle(title: "Cultural Habits in \(country.counrtryName)")
-                        Text("Here are some of the local customs and habits...")
+                    if let selectedTab = selectedTab {
+                        if let content = filteredContent.first?.content {
+                            SectionTitle(title: selectedTab.catagoryName)
+                            Text(content)
+                        } else {
+                            Text("No content available for this category.")
+                                .padding()
+                                .font(.body)
+                        }
                     }
                 }
                 .padding()
                 .background(Color(UIColor.systemGroupedBackground))
             }
         }
+        .onAppear {
+            loadCategories()
+            loadCategoryContent()
+        }
         .navigationTitle(country.counrtryName)
+    }
+
+    // Load Categories from catagory.json
+    func loadCategories() {
+        if let url = Bundle.main.url(forResource: "catagory", withExtension: "json"),
+           let data = try? Data(contentsOf: url) {
+            let decoder = JSONDecoder()
+            if let loadedCategories = try? decoder.decode([Category].self, from: data) {
+                categories = loadedCategories
+                selectedTab = categories.first // Select the first category by default
+            } else {
+                print("Failed to decode categories.")
+            }
+        } else {
+            print("Failed to load catagory.json")
+        }
+    }
+
+    // Load Category Content from catagoryContent.json
+    func loadCategoryContent() {
+        if let url = Bundle.main.url(forResource: "catagoryContent", withExtension: "json"),
+           let data = try? Data(contentsOf: url) {
+            let decoder = JSONDecoder()
+            if let loadedCategoryContent = try? decoder.decode([CategoryContent].self, from: data) {
+                categoryContent = loadedCategoryContent
+            } else {
+                print("Failed to decode category content.")
+            }
+        } else {
+            print("Failed to load catagoryContent.json")
+        }
     }
 }
 
