@@ -44,39 +44,54 @@ struct CountryContent_Russia_: View {
                         HStack(spacing: 1) {
                             ForEach(categories, id: \.self) { cate in
                                 ZStack {
-                                    
                                     TabButton(title: cate, isSelected: selectedTab == cate) {
                                         selectedTab = cate
                                     }
                                 }
                             }
                         }
- 
                     }
                 }
                 
-                ScrollView{
-                    
-                    // Display content
+                ScrollView {
+                    Spacer()
                     if let selectedTab = selectedTab {
-                        Spacer()
-                        Text("\(selectedTab)")
+                        Text(contentForTab(selectedTab))
                             .font(.title3)
                             .foregroundColor(.brown)
                             .padding()
+                            .multilineTextAlignment(.trailing) // Right-align the text
                             .frame(alignment: .trailing)
-                            .padding(.trailing,10)
-                        
-
+                            .padding(.trailing, 10)
                     } else {
-                        Spacer()
-                        Text(" وش حاب تعرف عن روسيا ؟")
+                        Text("وش حاب تعرف عن روسيا؟")
                             .foregroundColor(.brown)
                             .padding()
+                            .multilineTextAlignment(.trailing) // Right-align the text
                     }
                 }
                 Spacer()
             }
+        }
+    }
+    
+    // Function to return content for each tab
+    func contentForTab(_ tab: String) -> String {
+        switch tab {
+        case "نبذة":
+            return "بريطانيا هي دولة أوروبية..."
+        case "الأكل":
+            return "الطعام البريطاني التقليدي يشمل الفيش آند شيبس..."
+        case "كلمات":
+            return "في بريطانيا، يستخدمون كلمات مختلفة مثل: Loo تعني حمام..."
+        case "أماكن":
+            return "لندن هي عاصمة بريطانيا وفيها معالم مثل برج لندن..."
+        case "انتبه تسويها":
+            return "لا تنسَ الوقوف في الطابور وانتظار دورك..."
+        case "عاداتهم":
+            return "من عاداتهم شرب الشاي في الساعة الخامسة..."
+        default:
+            return "محتوى غير متاح"
         }
     }
     
