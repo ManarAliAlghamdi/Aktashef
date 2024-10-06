@@ -3,13 +3,22 @@ import SwiftUI
 struct CountryListView: View {
     @Binding var countries: [Countries]
     @Binding var itemFavesbool: [Bool]
+    @Binding var sowFaves: Bool
     @State private var searchText = ""
 
     var filteredItems: [Countries] {
         if searchText.isEmpty {
-            return countries
+            if sowFaves {
+                return countries.filter { $0.counrtryIsFaves }  // Show only favorite countries if sowFaves is true
+            } else {
+                return countries  // Show all countries
+            }
         } else {
-            return countries.filter { $0.counrtryName.localizedCaseInsensitiveContains(searchText) }
+            if sowFaves {
+                return countries.filter { $0.counrtryName.localizedCaseInsensitiveContains(searchText) && $0.counrtryIsFaves }
+            } else {
+                return countries.filter { $0.counrtryName.localizedCaseInsensitiveContains(searchText) }
+            }
         }
     }
 
@@ -20,9 +29,9 @@ struct CountryListView: View {
 
                 LazyVStack(spacing: 20) {
                     ForEach(filteredItems.indices, id: \.self) { index in
-                        if index < itemFavesbool.count {  // Ensure valid index
+                        // Find the correct original index for favorite status
+                        if let originalIndex = countries.firstIndex(where: { $0.counrtryId == filteredItems[index].counrtryId }) {
                             ZStack(alignment: .bottomTrailing) {
-                                // Wrap the entire ZStack inside the NavigationLink
                                 NavigationLink(destination: CountryDetailWithTabsView(country: filteredItems[index])) {
                                     ZStack {
                                         Image(filteredItems[index].counrtryImageName)
@@ -39,13 +48,13 @@ struct CountryListView: View {
                                 }
 
                                 HStack {
-                                    Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
-                                        .foregroundColor(itemFavesbool[index] ? .red : .white)
+                                    Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
+                                        .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
                                         .font(.title)
                                         .padding(10)
                                         .onTapGesture {
-                                            toggleFavoriteStatus(for: filteredItems[index])
-                                            itemFavesbool[index].toggle()  // Update the favorite status locally
+                                            toggleFavoriteStatus(for: filteredItems[index], index: originalIndex)
+                                            itemFavesbool[originalIndex].toggle()  // Update the favorite status based on the original index
                                         }
                                     Spacer()
                                     Text(filteredItems[index].counrtryName)
@@ -71,7 +80,7 @@ struct CountryListView: View {
         }
     }
 
-    func toggleFavoriteStatus(for country: Countries) {
+    func toggleFavoriteStatus(for country: Countries, index: Int) {
         print("Before toggling: \(country.counrtryName) favorite status: \(country.counrtryIsFaves)")
         country.counrtryIsFaves.toggle()
         print("After toggling: \(country.counrtryName) favorite status: \(country.counrtryIsFaves)")
