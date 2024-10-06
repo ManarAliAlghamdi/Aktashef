@@ -30,7 +30,7 @@ struct ContryContent_UK: View {
                     .bold()
                     .font(.largeTitle)
                     .italic()
-                    .shadow(color: .black, radius: 10)
+                    .shadow(color: .black, radius: 3)
             }
             .padding() // End of ZStack
             
