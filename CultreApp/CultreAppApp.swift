@@ -11,16 +11,20 @@ import SwiftUI
 struct CultreAppApp: App {
     var body: some Scene {
         WindowGroup {
-                ChangeCounrtiesView()
+           // ContentView()
+            ChangeCounrtiesView()
             }
+        
         }
     }
 
 
 struct ChangeCounrtiesView: View{
-
-    @State private var showCountryGrid = true
+    @State private var showCountryGrid = false
     @State private var showCountryFaves = false
+    @State private var countries: [Countries] = []
+    @State private var itemFavesbool: [Bool] = []
+    @State private var isGridView = false
     var body: some View{
         NavigationStack{
             VStack{
@@ -55,12 +59,33 @@ struct ChangeCounrtiesView: View{
                 .padding(.leading, 25)
                 .padding(.trailing, 25)
                 if !showCountryGrid{
-                    CountryListView(showCountryFaves: $showCountryFaves)
+                    CountryListView(countries: $countries, itemFavesbool: $itemFavesbool)
                 }else{
-                    CountryGridView(showCountryFaves: $showCountryFaves)
+                    CountryGridView(countries: $countries, itemFavesbool: $itemFavesbool)
                 }
                 
             }
+        } .onAppear {
+            loadCountriesAndFavorites()
+        }
+    }
+
+    func loadCountriesAndFavorites() {
+        countries = loadCountries()
+
+        itemFavesbool = countries.map { $0.counrtryIsFaves }
+        
+
+        for country in countries {
+            print("Loaded country: \(country.counrtryName), favorite status: \(country.counrtryIsFaves)")
         }
     }
 }
+
+
+
+
+
+
+    
+
