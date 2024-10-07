@@ -24,7 +24,7 @@ struct CountryListView: View {
 
     var body: some View {
         VStack {
-            SearchBar(text: $searchText)
+            SearchBar(text: $searchText).padding()
 
             ScrollView {
                 LazyVStack(spacing: 16) {  // Add spacing between items for clarity
