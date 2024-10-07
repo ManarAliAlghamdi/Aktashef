@@ -13,42 +13,45 @@ struct CountryDetailWithTabsView: View {
 
     var body: some View {
         VStack {
-            // Header Image and Country Title (similar to CountryListView design)
-            ZStack(alignment: .bottomTrailing) {
+            // Header Image and Country Title
+            ZStack(alignment: .bottomLeading) {
                 Image(country.counrtryImageName)
                     .resizable()
-                    .scaledToFill()  // Ensures the image fills the entire frame
-                    .frame(height: 180)  // Consistent image height similar to CountryListView
-                    .clipped()  // Avoid image overflow
-                    .cornerRadius(20)  // Rounded corners
+                    .scaledToFill()
+                    .frame(height: 180)
+                    .clipped()
+                    .cornerRadius(20)
                     .shadow(radius: 10)
 
                 // Country Name Text over Image
-                Text(country.counrtryName)
+                Text("\(country.counrtryName)")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding(.bottom, 10)
-                    .padding(.trailing, 10)
+                    .padding(.leading, 10)
+                    .multilineTextAlignment(.leading)
                     .shadow(color: .black, radius: 10)
             }
             .padding()
 
-            // Tab Buttons with Reduced Spacing and Softer Colors
+            // Tab Buttons aligned to the right (RTL)
             VStack {
                 ZStack {
                     ScrollView(.horizontal) {
-                        HStack(spacing: 10) {  // Slightly reduced spacing between buttons
+                        HStack(spacing: 10) {
                             ForEach(categories) { category in
                                 TabButton(title: category.catagoryName, isSelected: selectedTab?.catagoryId == category.catagoryId) {
                                     selectedTab = category
                                 }
-                                .frame(height: 50)  // Consistent button height
-                                .padding(.horizontal, 3)  // Padding inside the button to keep text centered
-                                .layoutPriority(1)  // Ensure priority to avoid text clipping
+                                .frame(height: 50)
+                                .padding(.horizontal, 3)
+                                .layoutPriority(1)
                             }
                         }
-                        .padding(.horizontal, 15)  // Padding to avoid buttons touching the sides
+                        .padding(.horizontal, 15)
+                        .frame(maxWidth: .infinity, alignment: .trailing)  // Align tabs to the right
+                        .environment(\.layoutDirection, .leftToRight)  // Enforce RTL layout
                     }
                 }
             }
@@ -59,11 +62,14 @@ struct CountryDetailWithTabsView: View {
                     if let selectedTab = selectedTab {
                         if let content = filteredContent.first?.content {
                             SectionTitle(title: selectedTab.catagoryName)
+                                .multilineTextAlignment(.leading)
                             Text(content)
+                                .multilineTextAlignment(.leading)
                         } else {
                             Text("No content available for this category.")
                                 .padding()
                                 .font(.body)
+                                .multilineTextAlignment(.leading)
                         }
                     }
                 }
@@ -71,11 +77,11 @@ struct CountryDetailWithTabsView: View {
                 .background(Color(UIColor.systemGroupedBackground))
             }
         }
+        .environment(\.layoutDirection, .rightToLeft)  // Enforce RTL layout
         .onAppear {
             loadCategories()
             loadCategoryContent()
         }
-        .navigationTitle(country.counrtryName)
     }
 
     // Load Categories from catagory.json
@@ -124,7 +130,7 @@ struct TabButton: View {
             .background(
                 ZStack {
                     if isSelected {
-                        LinearGradient(gradient: Gradient(colors: [Color.brown.opacity(0.3), Color.white.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                        LinearGradient(gradient: Gradient(colors: [Color.brown.opacity(0.3), Color.white.opacity(0.3)]), startPoint: .topLeading, endPoint: .bottomLeading)
                             .clipShape(Capsule())
                             .shadow(color: Color.brown.opacity(0.3), radius: 5, x: 0, y: 3)
                     } else {
@@ -158,6 +164,7 @@ struct SectionTitle: View {
                 .font(.title2)
                 .fontWeight(.bold)
         }
+        .multilineTextAlignment(.leading)
         .padding(.vertical, 10)
     }
 }

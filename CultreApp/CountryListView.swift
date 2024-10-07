@@ -9,9 +9,9 @@ struct CountryListView: View {
     var filteredItems: [Countries] {
         if searchText.isEmpty {
             if sowFaves {
-                return countries.filter { $0.counrtryIsFaves }  // Show only favorite countries if sowFaves is true
+                return countries.filter { $0.counrtryIsFaves }
             } else {
-                return countries  // Show all countries
+                return countries
             }
         } else {
             if sowFaves {
@@ -23,40 +23,37 @@ struct CountryListView: View {
     }
 
     var body: some View {
-        NavigationView {
+        VStack {
+            SearchBar(text: $searchText)
+
             ScrollView {
-                SearchBar(text: $searchText)
-
-                LazyVStack(spacing: 20) {
+                LazyVStack(spacing: 16) {  // Add spacing between items for clarity
                     ForEach(filteredItems.indices, id: \.self) { index in
-                        // Find the correct original index for favorite status
-                        if let originalIndex = countries.firstIndex(where: { $0.counrtryId == filteredItems[index].counrtryId }) {
+                        NavigationLink(destination: CountryDetailWithTabsView(country: filteredItems[index])) {
                             ZStack(alignment: .bottomTrailing) {
-                                NavigationLink(destination: CountryDetailWithTabsView(country: filteredItems[index])) {
-                                    ZStack {
-                                        Image(filteredItems[index].counrtryImageName)
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)  // Ensures images fill the frame proportionally
-                                            .frame(width: UIScreen.main.bounds.width - 40, height: 150)  // Fixed width and height for all images
-                                            .clipped()  // Clip overflow to fit the frame
-                                            .cornerRadius(20)
+                                Image(filteredItems[index].counrtryImageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: UIScreen.main.bounds.width - 32, height: 150)  // Full width with padding
+                                    .cornerRadius(20)
+                                    .clipped()
 
-                                        Color.black
-                                            .opacity(0.4)  // Dark overlay for better text visibility
-                                            .cornerRadius(20)
-                                    }
-                                }
+                                // Black overlay for text and icons
+                                Color.black.opacity(0.4)
+                                    .cornerRadius(20)
 
+                                // Heart icon and country name
                                 HStack {
-                                    Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
-                                        .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
+                                    Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
+                                        .foregroundColor(itemFavesbool[index] ? .red : .white)
                                         .font(.title)
                                         .padding(10)
                                         .onTapGesture {
-                                            toggleFavoriteStatus(for: filteredItems[index], index: originalIndex)
-                                            itemFavesbool[originalIndex].toggle()  // Update the favorite status based on the original index
+                                            toggleFavoriteStatus(for: filteredItems[index], index: index)
+                                            itemFavesbool[index].toggle()
                                         }
                                     Spacer()
+
                                     Text(filteredItems[index].counrtryName)
                                         .font(.title)
                                         .fontWeight(.bold)
@@ -64,18 +61,11 @@ struct CountryListView: View {
                                         .padding(10)
                                 }
                             }
-                            .frame(height: 150)
-                            .frame(width: 360)
-                            .cornerRadius(20)  // Ensure consistent corner radius
-                            .clipped()  // Clip any overflow
-                        } else {
-                            Text("Country not found or favorite status missing")
-                                .font(.title)
-                                .padding()
+                            .frame(width: UIScreen.main.bounds.width - 32, height: 150)  // Ensure consistent item size
                         }
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 16)  // Padding around the entire scrollable list
             }
         }
     }

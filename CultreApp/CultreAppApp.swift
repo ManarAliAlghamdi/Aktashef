@@ -19,6 +19,8 @@ struct CultreAppApp: App {
     }
 
 struct ChangeCounrtiesView: View{
+    @Environment(\.colorScheme) var colorScheme  // Access the current color scheme (dark or light)
+
     @State private var showCountryGrid = false
     @State private var showCountryFaves = false
     @State private var countries: [Countries] = []
@@ -38,7 +40,6 @@ struct ChangeCounrtiesView: View{
                         HStack {
                             Image(systemName: showCountryGrid ? "line.3.horizontal" : "square.grid.2x2")
                                 .font(.system(size: 25))
-                                .foregroundColor(.black)
                                 .onTapGesture {
                                     showCountryGrid.toggle()
                                 }
@@ -52,7 +53,7 @@ struct ChangeCounrtiesView: View{
                             Spacer()
                             
                             Image(systemName: showCountryFaves ? "heart.fill" : "heart")
-                                .foregroundColor(showCountryFaves ? .red : .black)
+                                .foregroundColor(showCountryFaves ? .red : (colorScheme == .dark ? .white : .black))
                                 .font(.system(size: 25))
                                 .onTapGesture {
                                     showCountryFaves.toggle()

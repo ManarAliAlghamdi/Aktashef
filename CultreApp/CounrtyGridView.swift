@@ -1,11 +1,14 @@
 import SwiftUI
 
 struct CountryGridView: View {
+    
     @Binding var countries: [Countries]
     @Binding var itemFavesbool: [Bool]
     @Binding var sowFaves: Bool
     @State private var searchText = ""
 
+    
+    
     var filteredItems: [Countries] {
         if searchText.isEmpty {
             if sowFaves {
@@ -23,58 +26,66 @@ struct CountryGridView: View {
     }
 
     let columns = [
-        GridItem(.flexible(), spacing: 10),
-        GridItem(.flexible(), spacing: 10)
+        GridItem(.flexible(), spacing: 5),  // Reduced spacing between columns
+        GridItem(.flexible(), spacing: 5)
     ]
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                SearchBar(text: $searchText)
-
-                LazyVGrid(columns: columns) {
-                    ForEach(filteredItems.indices, id: \.self) { index in
-                        if let originalIndex = countries.firstIndex(where: { $0.counrtryId == filteredItems[index].counrtryId }) {
+        VStack{
+            SearchBar(text: $searchText)
+            NavigationView {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(filteredItems.indices, id: \.self)
+                        {
+                            index in
                             ZStack(alignment: .bottom) {
-                                NavigationLink(destination: CountryDetailWithTabsView(country: filteredItems[index])) {
-                                    Image(filteredItems[index].counrtryImageName)
-                                        .resizable()
-                                        .frame(width: 180, height: 120)  // Ensure the image size fits the grid
-                                        .clipped()
-                                        .cornerRadius(15)
-                                        .overlay(
-                                            Color.black
-                                                .opacity(0.4)
-                                                .cornerRadius(15)
-                                        )
-                                }
-
-                                HStack {
-                                    Image(systemName: itemFavesbool[originalIndex] ? "heart.fill" : "heart")
-                                        .foregroundColor(itemFavesbool[originalIndex] ? .red : .white)
-                                        .font(.title)
-                                        .padding(10)
-                                        .onTapGesture {
-                                            toggleFavoriteStatus(for: filteredItems[index], index: originalIndex)
-                                            itemFavesbool[originalIndex].toggle()
+                                GeometryReader { geometry in
+                                    NavigationLink(destination: CountryDetailWithTabsView(country: filteredItems[index])) {
+                                        
+                                        Image(filteredItems[index].counrtryImageName)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: geometry.size.width, height: geometry.size.height)
+                                            .clipped()
+                                            .cornerRadius(20)
+                                            .overlay(
+                                                Color.black
+                                                    .opacity(0.4)
+                                                    .cornerRadius(20)
+                                            )}
+                                    
+                                    VStack {
+                                        Spacer()
+                                        HStack {
+                                            Image(systemName: itemFavesbool[index] ? "heart.fill" : "heart")
+                                                .foregroundColor(itemFavesbool[index] ? .red : .white)
+                                                .font(.title)
+                                                .padding(10)
+                                                .onTapGesture {
+                                                    
+                                                    toggleFavoriteStatus(for: filteredItems[index], index: index)
+                                                    itemFavesbool[index].toggle()
+                                                    
+                                                }
+                                            Spacer()
+                                            
+                                            
+                                            Text(filteredItems[index].counrtryName)
+                                                .font(.title2)
+                                                .fontWeight(.bold)
+                                                .foregroundColor(.white)
+                                                .padding([.horizontal, .bottom], 10)
                                         }
-                                    Spacer()
-                                    Text(filteredItems[index].counrtryName)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                        .foregroundColor(.white)
-                                        .padding(8)
+                                    }
                                 }
+                                .frame(height: 150)
                             }
-                            .frame(height: 150)  // Ensure a consistent height for grid items
-                            .background(Color.white.opacity(0.2))
-                            .cornerRadius(15)
-                            .shadow(radius: 5)
-                            .padding(5)  // Add padding to each grid item to avoid overlap
+                            .frame(height: 150)
                         }
                     }
+                    .padding(.horizontal, 5)  // Reduced padding around the entire grid
                 }
-                .padding(.horizontal, 10)  // Add padding around the entire grid
             }
         }
     }
