@@ -56,6 +56,8 @@ struct SearchBar: View {
     var body: some View {
         HStack {
             TextField("على وين رايح؟ ...", text: $text)
+                .frame(alignment: .trailing)
+
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(UIColor.systemGray5))
@@ -64,7 +66,7 @@ struct SearchBar: View {
                     HStack {
                         Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
                             .padding(.leading, 8)
                     }
                 )
