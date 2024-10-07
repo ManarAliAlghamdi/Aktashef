@@ -55,22 +55,19 @@ struct SearchBar: View {
 
     var body: some View {
         HStack {
-            TextField("على وين رايح؟ ...", text: $text)
-                .frame(alignment: .trailing)
-
-                .padding(7)
-                .padding(.horizontal, 25)
-                .background(Color(UIColor.systemGray5))
-                .cornerRadius(8)
-                .overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.gray)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .trailing)
-                            .padding(.leading, 8)
-                    }
-                )
-                .padding(.horizontal, 10)
+            HStack {
+                TextField("على وين رايح؟ ...", text: $text)
+                    .multilineTextAlignment(.trailing) // Align text to the right
+                    .padding(7)
+                
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.gray)
+            }
+            .padding(.horizontal, 15)
+            .background(Color(UIColor.systemGray5))
+            .cornerRadius(8)
+            .padding(.horizontal, 10)
+            .frame(maxWidth: .infinity, alignment: .trailing) // Ensure the entire HStack aligns to the right
         }
     }
 }

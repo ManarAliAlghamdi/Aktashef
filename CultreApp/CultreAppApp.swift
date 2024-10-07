@@ -38,7 +38,7 @@ struct ChangeCounrtiesView: View{
                     VStack {
                         // Toggle between grid view and list view
                         HStack {
-                            Image(systemName: showCountryGrid ? "line.3.horizontal" : "square.grid.2x2")
+                            Image(systemName: showCountryGrid ? "list.bullet" : "square.grid.2x2")
                                 .font(.system(size: 25))
                                 .onTapGesture {
                                     showCountryGrid.toggle()
