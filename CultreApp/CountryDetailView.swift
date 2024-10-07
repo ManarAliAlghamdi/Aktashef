@@ -38,7 +38,7 @@ struct CountryDetailWithTabsView: View {
             // Tab Buttons aligned to the right (RTL)
             VStack {
                 ZStack {
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             ForEach(categories) { category in
                                 TabButton(title: category.catagoryName, isSelected: selectedTab?.catagoryId == category.catagoryId) {
@@ -49,7 +49,7 @@ struct CountryDetailWithTabsView: View {
                                 .layoutPriority(1)
                             }
                         }
-                        .padding(.horizontal, 15)
+                            .padding(.horizontal, 15)
                         .frame(maxWidth: .infinity, alignment: .trailing)  // Align tabs to the right
                         .environment(\.layoutDirection, .leftToRight)  // Enforce RTL layout
                     }
