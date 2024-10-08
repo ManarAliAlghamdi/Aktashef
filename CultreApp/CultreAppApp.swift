@@ -59,7 +59,6 @@ struct ChangeCounrtiesView: View{
                                     showCountryFaves.toggle()
                                 }
                         }
-                        .padding(.bottom, 10)
                         .padding(.leading, 25)
                         .padding(.trailing, 25)
                         
