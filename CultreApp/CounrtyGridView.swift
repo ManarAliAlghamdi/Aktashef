@@ -32,7 +32,10 @@ struct CountryGridView: View {
 
     var body: some View {
         VStack{
-            SearchBar(text: $searchText).padding()
+            SearchBar(text: $searchText)
+                .padding(.bottom, 10)
+                .padding(.leading, 10)
+                .padding(.trailing, 10)
             NavigationView {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
