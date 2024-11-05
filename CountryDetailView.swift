@@ -7,11 +7,6 @@ struct CountryDetailWithTabsView: View {
     @State private var categoryContent: [CategoryContent] = []  // Content for the selected country
     @State private var selectedTab: Int = 0  // Track the selected tab
 
-    // Filter content based on the selected tab and country
-    var filteredContent: [CategoryContent] {
-        return categoryContent.filter { $0.counrtryId == country.counrtryId && $0.catagoryId == categories[selectedTab].catagoryId }
-    }
-    
     var body: some View {
         VStack {
             // Header with country image and name
@@ -23,43 +18,40 @@ struct CountryDetailWithTabsView: View {
                     .clipped()
                     .cornerRadius(20)
                     .shadow(radius: 10)
-//
-//                // Country Name Text over Image
-//                Text("\(country.counrtryName)")
-//                    .font(.largeTitle)
-//                    .fontWeight(.bold)
-//                    .foregroundColor(.white)
-//                    .padding(.bottom, 10)
-//                    .padding(.leading, 10)
-//                    .multilineTextAlignment(.leading)
-//                    .shadow(color: .black, radius: 10)
             }
             .padding()
 
             // Custom Tab Bar using ScrollView for dynamic button sizes
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 10) {
-                    ForEach(0..<categories.count, id: \.self) { index in
-                        Button(action: {
-                            selectedTab = index
-                        }) {
-                            Text(categories[index].catagoryName)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)  // Ensure the button expands with the text
-                                .background(selectedTab == index ? Color.blue : Color.gray.opacity(0.2))
-                                .foregroundColor(selectedTab == index ? .white : .black)
-                                .cornerRadius(25)
+            ScrollViewReader { scrollViewProxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        ForEach(0..<categories.count, id: \.self) { index in
+                            Button(action: {
+                                selectedTab = index
+                            }) {
+                                Text(categories[index].catagoryName)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 20)  // Ensure the button expands with the text
+                                    .background(selectedTab == index ? Color.blue : Color.gray.opacity(0.2))
+                                    .foregroundColor(selectedTab == index ? .white : .black)
+                                    .cornerRadius(25)
+                            }
+                            .animation(.easeInOut(duration: 0.2))  // Smooth transition on tab switch
+                            .id(index)  // Assign an ID for each tab
                         }
-                        .animation(.easeInOut(duration: 0.2))  // Smooth transition on tab switch
                     }
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .trailing)  // Align the tabs to the right
                 }
-                .padding(.horizontal)
+                .frame(height: 50)  // Ensure the height is sufficient for the tab bar
+                .onAppear {
+                    scrollViewProxy.scrollTo(0, anchor: .trailing)  // Scroll to the first tab on load (visually last in RTL)
+                }
             }
-            .frame(height: 50)  // Ensure the height is sufficient for the tab bar
 
             // Content View Based on Selected Tab
             ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .trailing, spacing: 20) {
                     // Add Section Header with Title and Icon
                     if selectedTab < categories.count {
                         SectionHeaderView(
@@ -69,10 +61,10 @@ struct CountryDetailWithTabsView: View {
                     }
 
                     // Display the filtered content based on the selected tab
-                    if let content = filteredContent.first?.content {
+                    if let content = categoryContent.first(where: { $0.catagoryId == categories[selectedTab].catagoryId })?.content {
                         Text(content)
                             .styleContentText()
-                            .multilineTextAlignment(.leading)  // Right-align the text for Arabic
+                            .multilineTextAlignment(.trailing)  // Left-align the content text
                     } else {
                         Text("لا يوجد محتوى متاح لهذه الفئة.")  // If no content is available
                             .styleContentText()
@@ -83,7 +75,7 @@ struct CountryDetailWithTabsView: View {
             }
         }
         .navigationBarTitle(country.counrtryName)
-        .environment(\.layoutDirection, .rightToLeft)  // Enforce RTL layout for the entire view
+//        .environment(\.layoutDirection, .rightToLeft)  // Enforce RTL layout for the entire view
         .onAppear {
             loadCategories()
             loadCategoryContent()
@@ -135,6 +127,7 @@ struct CountryDetailWithTabsView: View {
         case 4: return "text.bubble"
         case 5: return "map.fill"
         case 6: return "exclamationmark.triangle"
+        case 7: return "person.line.dotted.person"
         default: return "questionmark.circle"
         }
     }
@@ -166,6 +159,6 @@ extension Text {
         self
             .font(.body)
             .foregroundColor(.secondary)
-            .multilineTextAlignment(.leading)  // Align content text to the right for Arabic
+            .multilineTextAlignment(.trailing)  // Align content text to the right for Arabic
     }
 }

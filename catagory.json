@@ -20,5 +20,8 @@
     }, {
         "catagoryId": 6,
         "catagoryName": "انتبه تسويها عندهم"
+    },{
+        "catagoryId": 7,
+        "catagoryName": "عاداتهم الاجتماعية"
     },
 ]

@@ -6,8 +6,41 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		29F799DB2CDA44BC00734846 /* CultreAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D42CDA44BC00734846 /* CultreAppApp.swift */; };
+		29F799DC2CDA44BC00734846 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D32CDA44BC00734846 /* CountryModel.swift */; };
+		29F799DD2CDA44BC00734846 /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D22CDA44BC00734846 /* CountryListView.swift */; };
+		29F799DE2CDA44BC00734846 /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D62CDA44BC00734846 /* GifImage.swift */; };
+		29F799DF2CDA44BC00734846 /* DataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D52CDA44BC00734846 /* DataLoader.swift */; };
+		29F799E02CDA44BC00734846 /* CountryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D12CDA44BC00734846 /* CountryDetailView.swift */; };
+		29F799E12CDA44BC00734846 /* CounrtyGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799CF2CDA44BC00734846 /* CounrtyGridView.swift */; };
+		29F799E22CDA44BC00734846 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D02CDA44BC00734846 /* countries.json */; };
+		29F799E32CDA44BC00734846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F799CC2CDA44BC00734846 /* Assets.xcassets */; };
+		29F799E42CDA44BC00734846 /* passport.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799DA2CDA44BC00734846 /* passport.gif */; };
+		29F799E52CDA44BC00734846 /* catagoryContent.json in Resources */ = {isa = PBXBuildFile; fileRef = 29F799CE2CDA44BC00734846 /* catagoryContent.json */; };
+		29F799E62CDA44BC00734846 /* catagory.json in Resources */ = {isa = PBXBuildFile; fileRef = 29F799CD2CDA44BC00734846 /* catagory.json */; };
+		29F799E72CDA44BC00734846 /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D72CDA44BC00734846 /* logo.gif */; };
+		29F799E82CDA44BC00734846 /* logo3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D92CDA44BC00734846 /* logo3.gif */; };
+		29F799E92CDA44BC00734846 /* logo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D82CDA44BC00734846 /* logo2.gif */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		29A6285D2CAAC7DD00578275 /* CultreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CultreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29F799CC2CDA44BC00734846 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		29F799CD2CDA44BC00734846 /* catagory.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = catagory.json; sourceTree = "<group>"; };
+		29F799CE2CDA44BC00734846 /* catagoryContent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = catagoryContent.json; sourceTree = "<group>"; };
+		29F799CF2CDA44BC00734846 /* CounrtyGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounrtyGridView.swift; sourceTree = "<group>"; };
+		29F799D02CDA44BC00734846 /* countries.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = countries.json; sourceTree = "<group>"; };
+		29F799D12CDA44BC00734846 /* CountryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailView.swift; sourceTree = "<group>"; };
+		29F799D22CDA44BC00734846 /* CountryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryListView.swift; sourceTree = "<group>"; };
+		29F799D32CDA44BC00734846 /* CountryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryModel.swift; sourceTree = "<group>"; };
+		29F799D42CDA44BC00734846 /* CultreAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CultreAppApp.swift; sourceTree = "<group>"; };
+		29F799D52CDA44BC00734846 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
+		29F799D62CDA44BC00734846 /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
+		29F799D72CDA44BC00734846 /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
+		29F799D82CDA44BC00734846 /* logo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo2.gif; sourceTree = "<group>"; };
+		29F799D92CDA44BC00734846 /* logo3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo3.gif; sourceTree = "<group>"; };
+		29F799DA2CDA44BC00734846 /* passport.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = passport.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -34,6 +67,21 @@
 			children = (
 				29A6285F2CAAC7DD00578275 /* CultreApp */,
 				29A6285E2CAAC7DD00578275 /* Products */,
+				29F799CC2CDA44BC00734846 /* Assets.xcassets */,
+				29F799CD2CDA44BC00734846 /* catagory.json */,
+				29F799CE2CDA44BC00734846 /* catagoryContent.json */,
+				29F799CF2CDA44BC00734846 /* CounrtyGridView.swift */,
+				29F799D02CDA44BC00734846 /* countries.json */,
+				29F799D12CDA44BC00734846 /* CountryDetailView.swift */,
+				29F799D22CDA44BC00734846 /* CountryListView.swift */,
+				29F799D32CDA44BC00734846 /* CountryModel.swift */,
+				29F799D42CDA44BC00734846 /* CultreAppApp.swift */,
+				29F799D52CDA44BC00734846 /* DataLoader.swift */,
+				29F799D62CDA44BC00734846 /* GifImage.swift */,
+				29F799D72CDA44BC00734846 /* logo.gif */,
+				29F799D82CDA44BC00734846 /* logo2.gif */,
+				29F799D92CDA44BC00734846 /* logo3.gif */,
+				29F799DA2CDA44BC00734846 /* passport.gif */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +130,7 @@
 				TargetAttributes = {
 					29A6285C2CAAC7DD00578275 = {
 						CreatedOnToolsVersion = 16.0;
+						LastSwiftMigration = 1610;
 					};
 				};
 			};
@@ -109,6 +158,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29F799E22CDA44BC00734846 /* countries.json in Resources */,
+				29F799E32CDA44BC00734846 /* Assets.xcassets in Resources */,
+				29F799E42CDA44BC00734846 /* passport.gif in Resources */,
+				29F799E52CDA44BC00734846 /* catagoryContent.json in Resources */,
+				29F799E62CDA44BC00734846 /* catagory.json in Resources */,
+				29F799E72CDA44BC00734846 /* logo.gif in Resources */,
+				29F799E82CDA44BC00734846 /* logo3.gif in Resources */,
+				29F799E92CDA44BC00734846 /* logo2.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +176,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29F799DB2CDA44BC00734846 /* CultreAppApp.swift in Sources */,
+				29F799DC2CDA44BC00734846 /* CountryModel.swift in Sources */,
+				29F799DD2CDA44BC00734846 /* CountryListView.swift in Sources */,
+				29F799DE2CDA44BC00734846 /* GifImage.swift in Sources */,
+				29F799DF2CDA44BC00734846 /* DataLoader.swift in Sources */,
+				29F799E02CDA44BC00734846 /* CountryDetailView.swift in Sources */,
+				29F799E12CDA44BC00734846 /* CounrtyGridView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +313,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CultreApp/Preview Content\"";
@@ -268,6 +333,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.manarProjects.CultreApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -278,6 +344,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"CultreApp/Preview Content\"";

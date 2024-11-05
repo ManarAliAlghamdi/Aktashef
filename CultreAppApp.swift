@@ -31,7 +31,7 @@ struct ChangeCounrtiesView: View{
     var body: some View{
         ZStack {
             if showSplash {
-                FunSplashScreen()  // Splash screen view
+                SplashScreenView()  // Splash screen view
                     .transition(.opacity)  // Fade in and fade out transition
             } else {
                 NavigationStack {
