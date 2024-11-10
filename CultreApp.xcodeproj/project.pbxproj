@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291532872CE0EDBA006D72EE /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291532862CE0EDBA006D72EE /* SwiftUIView.swift */; };
 		29F799DB2CDA44BC00734846 /* CultreAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D42CDA44BC00734846 /* CultreAppApp.swift */; };
 		29F799DC2CDA44BC00734846 /* CountryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D32CDA44BC00734846 /* CountryModel.swift */; };
 		29F799DD2CDA44BC00734846 /* CountryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799D22CDA44BC00734846 /* CountryListView.swift */; };
@@ -16,15 +17,12 @@
 		29F799E12CDA44BC00734846 /* CounrtyGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F799CF2CDA44BC00734846 /* CounrtyGridView.swift */; };
 		29F799E22CDA44BC00734846 /* countries.json in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D02CDA44BC00734846 /* countries.json */; };
 		29F799E32CDA44BC00734846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F799CC2CDA44BC00734846 /* Assets.xcassets */; };
-		29F799E42CDA44BC00734846 /* passport.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799DA2CDA44BC00734846 /* passport.gif */; };
 		29F799E52CDA44BC00734846 /* catagoryContent.json in Resources */ = {isa = PBXBuildFile; fileRef = 29F799CE2CDA44BC00734846 /* catagoryContent.json */; };
 		29F799E62CDA44BC00734846 /* catagory.json in Resources */ = {isa = PBXBuildFile; fileRef = 29F799CD2CDA44BC00734846 /* catagory.json */; };
-		29F799E72CDA44BC00734846 /* logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D72CDA44BC00734846 /* logo.gif */; };
-		29F799E82CDA44BC00734846 /* logo3.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D92CDA44BC00734846 /* logo3.gif */; };
-		29F799E92CDA44BC00734846 /* logo2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 29F799D82CDA44BC00734846 /* logo2.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		291532862CE0EDBA006D72EE /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		29A6285D2CAAC7DD00578275 /* CultreApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CultreApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F799CC2CDA44BC00734846 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		29F799CD2CDA44BC00734846 /* catagory.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = catagory.json; sourceTree = "<group>"; };
@@ -37,10 +35,6 @@
 		29F799D42CDA44BC00734846 /* CultreAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CultreAppApp.swift; sourceTree = "<group>"; };
 		29F799D52CDA44BC00734846 /* DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoader.swift; sourceTree = "<group>"; };
 		29F799D62CDA44BC00734846 /* GifImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
-		29F799D72CDA44BC00734846 /* logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo.gif; sourceTree = "<group>"; };
-		29F799D82CDA44BC00734846 /* logo2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo2.gif; sourceTree = "<group>"; };
-		29F799D92CDA44BC00734846 /* logo3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = logo3.gif; sourceTree = "<group>"; };
-		29F799DA2CDA44BC00734846 /* passport.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = passport.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -65,6 +59,7 @@
 		29A628542CAAC7DD00578275 = {
 			isa = PBXGroup;
 			children = (
+				291532862CE0EDBA006D72EE /* SwiftUIView.swift */,
 				29A6285F2CAAC7DD00578275 /* CultreApp */,
 				29A6285E2CAAC7DD00578275 /* Products */,
 				29F799CC2CDA44BC00734846 /* Assets.xcassets */,
@@ -78,10 +73,6 @@
 				29F799D42CDA44BC00734846 /* CultreAppApp.swift */,
 				29F799D52CDA44BC00734846 /* DataLoader.swift */,
 				29F799D62CDA44BC00734846 /* GifImage.swift */,
-				29F799D72CDA44BC00734846 /* logo.gif */,
-				29F799D82CDA44BC00734846 /* logo2.gif */,
-				29F799D92CDA44BC00734846 /* logo3.gif */,
-				29F799DA2CDA44BC00734846 /* passport.gif */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,12 +151,8 @@
 			files = (
 				29F799E22CDA44BC00734846 /* countries.json in Resources */,
 				29F799E32CDA44BC00734846 /* Assets.xcassets in Resources */,
-				29F799E42CDA44BC00734846 /* passport.gif in Resources */,
 				29F799E52CDA44BC00734846 /* catagoryContent.json in Resources */,
 				29F799E62CDA44BC00734846 /* catagory.json in Resources */,
-				29F799E72CDA44BC00734846 /* logo.gif in Resources */,
-				29F799E82CDA44BC00734846 /* logo3.gif in Resources */,
-				29F799E92CDA44BC00734846 /* logo2.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +165,7 @@
 			files = (
 				29F799DB2CDA44BC00734846 /* CultreAppApp.swift in Sources */,
 				29F799DC2CDA44BC00734846 /* CountryModel.swift in Sources */,
+				291532872CE0EDBA006D72EE /* SwiftUIView.swift in Sources */,
 				29F799DD2CDA44BC00734846 /* CountryListView.swift in Sources */,
 				29F799DE2CDA44BC00734846 /* GifImage.swift in Sources */,
 				29F799DF2CDA44BC00734846 /* DataLoader.swift in Sources */,
